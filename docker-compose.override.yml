@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  twitchbotv3:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44353
+      - SqlConnections:LocalMysql=server=mysql.db;port=3306;database=twitch_bot_api;uid=root;password=1234;
+    ports:
+      - "11423:80"
+      - "44353:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro

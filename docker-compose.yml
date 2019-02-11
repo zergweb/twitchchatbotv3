@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  mysql.db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=twitch_bot_api
+    volumes:
+      - ./mysql:/var/lib/mysql
+  twitchbotv3:
+    image: ${DOCKER_REGISTRY-}twitchbotv3
+    build:
+      context: .
+      dockerfile: TwitchBotV3/Dockerfile
+    depends_on:    
+       - mysql.db
+    links:
+       - mysql.db
+  

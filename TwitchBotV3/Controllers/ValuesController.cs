@@ -16,12 +16,14 @@ namespace TwitchBotV3.Controllers
     {
         ITestService t;
         IEntityRepository<Person> rep;
+        IServiceProvider serviceProvider;
         public IConfiguration Configuration { get; }
-        public ValuesController(ITestService test, IConfiguration conf, IEntityRepository<Person> _rep)
+        public ValuesController(ITestService test, IConfiguration conf, IEntityRepository<Person> _rep, IServiceProvider _serviceProvider)
         {
             t = test;
             Configuration = conf;
             rep = _rep;
+            serviceProvider = _serviceProvider;
         }
         [Authorize]
         [HttpPost("/testdata")]
@@ -31,12 +33,7 @@ namespace TwitchBotV3.Controllers
             return new string[] {t.GetData(), str, rep.Get(1).Name };
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
+
 
         // POST api/values
         [HttpPost]

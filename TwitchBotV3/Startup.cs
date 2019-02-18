@@ -17,6 +17,12 @@ using Microsoft.Extensions.Options;
 using TwitchBotV3.DbInit;
 using TwitchBotV3.Model.Repositories;
 using System.Text;
+using TwitchBotV3.Middlewares;
+using TwitchBotV3.Services.WebSocketService;
+using Microsoft.AspNetCore.Http;
+using System.Net.WebSockets;
+using System.Threading;
+using TwitchBotV3.Logger;
 
 namespace TwitchBotV3
 {
@@ -61,7 +67,7 @@ namespace TwitchBotV3
         {
             builder.RegisterModule(new AutofacModule());
         }
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
         {
             
             if (env.IsDevelopment())
@@ -72,11 +78,17 @@ namespace TwitchBotV3
             {
                 app.UseHsts();
             }
+            loggerFactory.WebSocketLogger(serviceProvider.GetService<ChatMessageHandler>());
             DbInitializer.InitDb(app);
             app.UseAuthentication();
             app.UseCors("AllowAll");
             app.UseHttpsRedirection();
+            app.UseWebSockets();
+            app.MapWebSocket("/ws", serviceProvider.GetService<ChatMessageHandler>());
             app.UseMvc();
+            app.UseStaticFiles();
+            
         }
+      
     }
 }

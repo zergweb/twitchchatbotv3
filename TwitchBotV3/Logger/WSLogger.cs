@@ -10,9 +10,9 @@ namespace TwitchBotV3.Logger
 {
     public class WSLogger : ILogger
     {
-        private ChatMessageHandler WSHandler;
+        private LoggerMessageHandler WSHandler;
         private object _lock = new object();
-        public WSLogger(ChatMessageHandler ws)
+        public WSLogger(LoggerMessageHandler ws)
         {
             WSHandler=ws;
         }

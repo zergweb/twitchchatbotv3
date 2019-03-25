@@ -78,13 +78,13 @@ namespace TwitchBotV3
             {
                 app.UseHsts();
             }
-            loggerFactory.WebSocketLogger(serviceProvider.GetService<ChatMessageHandler>());
+            loggerFactory.WebSocketLogger(serviceProvider.GetService<LoggerMessageHandler>());
             DbInitializer.InitDb(app);
             app.UseAuthentication();
             app.UseCors("AllowAll");
             app.UseHttpsRedirection();
             app.UseWebSockets();
-            app.MapWebSocket("/ws", serviceProvider.GetService<ChatMessageHandler>());
+            app.MapWebSocket("/ws", serviceProvider.GetService<LoggerMessageHandler>());
             app.UseMvc();
             app.UseStaticFiles();
             

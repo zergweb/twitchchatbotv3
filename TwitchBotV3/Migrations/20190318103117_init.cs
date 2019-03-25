@@ -20,7 +20,6 @@ namespace TwitchBotV3.Migrations
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
                 });
-
             migrationBuilder.CreateTable(
                 name: "Persons",
                 columns: table => new

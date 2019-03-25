@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TwitchBotV3.Model.Repositories
 {
-    public class TestRepository : IEntityRepository<Person>
+    public class ADOPersonRepository: IEntityRepository<Person>
     {
         public AppDbContext db;
-        public TestRepository(AppDbContext _db)
+        public ADOPersonRepository(AppDbContext _db)
         {
             db = _db;
         }

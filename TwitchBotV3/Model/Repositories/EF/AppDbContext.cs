@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TwitchBotV3.Model;
+using TwitchBotV3.Model.ChatCommands;
 
 namespace TwitchBotV3.Model.Repositories
 {
@@ -12,6 +13,7 @@ namespace TwitchBotV3.Model.Repositories
     {
         public DbSet<Person> Persons { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<CommonChatCommand> CommonChatCommands { get; set; }
         private IConfiguration config;
         public AppDbContext(IConfiguration configuration)
         {

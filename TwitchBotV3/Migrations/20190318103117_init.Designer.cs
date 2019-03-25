@@ -9,14 +9,14 @@ using TwitchBotV3.Model.Repositories;
 namespace TwitchBotV3.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190208202500_init")]
+    [Migration("20190318103117_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("TwitchBotV3.Model.Person", b =>

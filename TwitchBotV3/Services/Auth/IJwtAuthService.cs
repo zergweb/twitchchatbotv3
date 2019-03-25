@@ -7,6 +7,6 @@ namespace TwitchBotV3.Services.Auth
 {
     public interface IJwtAuthService
     {
-        Task<String> GetToken(string username, string password);
+        String GetToken(string username, string password);
     }
 }

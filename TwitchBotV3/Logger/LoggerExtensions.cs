@@ -9,7 +9,7 @@ namespace TwitchBotV3.Logger
 {
     public static class LoggerExtensions
     {
-        public static ILoggerFactory WebSocketLogger(this ILoggerFactory factory, ChatMessageHandler wsHandler
+        public static ILoggerFactory WebSocketLogger(this ILoggerFactory factory, LoggerMessageHandler wsHandler
                                         )
         {
             factory.AddProvider(new WSLoggerProvider(wsHandler));

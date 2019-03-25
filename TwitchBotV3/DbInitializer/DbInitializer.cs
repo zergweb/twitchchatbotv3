@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TwitchBotV3.Model;
+using TwitchBotV3.Model.ChatCommands;
 using TwitchBotV3.Model.Repositories;
 
 namespace TwitchBotV3.DbInit
@@ -39,10 +40,18 @@ namespace TwitchBotV3.DbInit
                                 Password="1234",
                                 Role=new Role(){Id=2, RoleName="user"}
                             }
-                        };
-                        context.Persons.AddRange(bands);
-                        context.SaveChanges();
+                        };                       
+                        context.Persons.AddRange(bands);                        
                     }
+                    if (!context.CommonChatCommands.Any()) {
+                        var CommonCommands = new List<CommonChatCommand> {
+                            new CommonChatCommand { Id = 1, CommandName = "com1", Responce = "responce1", Type = "CommonChatCommand" },
+                            new CommonChatCommand { Id = 2, CommandName = "com2", Responce = "responce2", Type = "CommonChatCommand" },
+                            new CommonChatCommand { Id = 3, CommandName = "com3", Responce = "responce3", Type = "CommonChatCommand" }
+                        };
+                        context.CommonChatCommands.AddRange(CommonCommands);
+                    }
+                    context.SaveChanges();
                 }
             }
 

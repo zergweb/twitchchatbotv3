@@ -9,8 +9,8 @@ namespace TwitchBotV3.Logger
 {
     public class WSLoggerProvider : ILoggerProvider
     {
-        private ChatMessageHandler ws;
-        public WSLoggerProvider(ChatMessageHandler wsHandler)
+        private LoggerMessageHandler ws;
+        public WSLoggerProvider(LoggerMessageHandler wsHandler)
         {
             ws = wsHandler;
         }

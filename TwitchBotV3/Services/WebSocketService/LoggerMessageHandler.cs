@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace TwitchBotV3.Services.WebSocketService
 {
-    public class ChatMessageHandler : WebSocketHandler
+    public class LoggerMessageHandler : WebSocketHandler
     {
-        public ChatMessageHandler(WSConnectionService webSocketConnectionManager) : base(webSocketConnectionManager)
+        public LoggerMessageHandler(WSConnectionService webSocketConnectionManager) : base(webSocketConnectionManager)
         {
         }
         public override async Task OnConnected(WebSocket socket)

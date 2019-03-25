@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TwitchBotV3.Services.Auth;
@@ -23,10 +24,16 @@ namespace TwitchBotV3.Controllers
             authManager = auth;
         }
         [HttpPost("/login")]
-        public async Task<IActionResult> Login([FromBody] AuthDataBody data)
+        public IActionResult Login([FromBody] AuthDataBody data)
         {
-            var r = await authManager.GetToken(data.login, data.pass);
+            var r = authManager.GetToken(data.login, data.pass);
             if (r != null) { return Ok(r); } else { return NotFound(); }                        
+        }
+        [Authorize]
+        [HttpGet("/isauth")]
+        public IActionResult IsAuth()
+        {
+            return Ok();
         }
     }
 }

@@ -17,7 +17,6 @@ namespace TwitchBotV3
         {
             CreateWebHostBuilder(args).Build().Run();
         }
-
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(serv=>serv.AddAutofac())

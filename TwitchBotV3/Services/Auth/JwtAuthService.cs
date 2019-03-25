@@ -17,15 +17,17 @@ namespace TwitchBotV3.Services.Auth
     public class JwtAuthService: IJwtAuthService
     {
         private AppDbContext db;
-        private IConfiguration config;
-        public JwtAuthService(AppDbContext _db, IConfiguration configuration)
+        private readonly IPersonRepository<Person> personRepository;
+        private readonly IConfiguration config;
+        public JwtAuthService(AppDbContext _db, IConfiguration configuration, IPersonRepository<Person> pr)
         {
             db = _db;
+            personRepository = pr;
             config = configuration;
         }
-        public async Task<String> GetToken(string username, string password)
+        public String GetToken(string username, string password)
         {
-            var identity = await GetIdentity(username, password);
+            var identity = GetIdentity(username, password);
             if (identity == null)
             {
                 return null;
@@ -48,16 +50,16 @@ namespace TwitchBotV3.Services.Auth
             };
             return JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented });
         }
-        private async Task<ClaimsIdentity> GetIdentity(string username, string password)
+        private ClaimsIdentity GetIdentity(string username, string password)
         {
-                Person person = await db.Persons.Include(p => p.Role).AsNoTracking().FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
+                //Person person = await db.Persons.Include(p => p.Role).AsNoTracking().FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
+                var person = personRepository.GetPerson(username, password);
                 if (person != null)
                 {
                     var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role.RoleName),
-
                 };
                     ClaimsIdentity claimsIdentity =
                     new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
